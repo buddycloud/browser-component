@@ -28,7 +28,10 @@ component.on('stanza', function(stanza) {
   if (socket) {
     return socket.emit('stanza', stanza)
   }
-  logic.process(stanza)
+  logic.process(stanza, function(stanza) {
+    if (!stanza) return
+    component.send(stanza)
+  })
 })*/
 
 io.on('connection', function(newSocket) {

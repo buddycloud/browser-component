@@ -5,6 +5,8 @@
   <script src="/bundle.js"></script>
   <script>
     var socket = io()
+    var logic = new BusinessLogic({})
+
     socket.on('connection', function() {
       console.log('We have a socket connection')
     })
@@ -19,6 +21,10 @@
     })
     socket.on('stanza', function(stanza) {
       console.log('Incoming: ' + stanza)
+      logic.process(stanza, function(stanza) {
+        if (!stanza) return
+        socket.emit('stanza', stanza)
+      })
       $('#stanzas').prepend('<div class="stanza">' + stanza + '</div')
     })
   </script>
