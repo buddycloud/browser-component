@@ -1,0 +1,34 @@
+<html>
+  <head>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/bundle.js"></script>
+  <script>
+    var socket = io()
+    socket.on('connection', function() {
+      console.log('We have a socket connection')
+    })
+    socket.on('disconnect', function() {
+      console.log('We have disconnected')
+    })
+    $('button').click(function() {
+      if ($('#stanza').length !== 0) {
+        socket.emit('stanza', $('#stanza').val())
+        $('#stanza').val('')
+      }
+    })
+    socket.on('stanza', function(stanza) {
+      console.log('Incoming: ' + stanza)
+      $('#stanzas').prepend('<div class="stanza">' + stanza + '</div')
+    })
+  </script>
+  </head>
+  <body>
+  <h1>Send a stanza</h1>
+  <textarea id="stanza" placeholder="Write your stanza here..."></textarea>
+  <button>Send stanza</button>
+
+   <h1>Stanzas</h1>
+   <div id="stanzas"></div>
+  </body>
+</html>
