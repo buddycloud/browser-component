@@ -12,8 +12,7 @@ app.use(express.static('public'))
 var socket = null
 var logic = new BusinessLogic()
 
-var component = {}
-/*var component = new Component({
+var component = new Component({
   jid: process.env.JID,
   password: process.env.PASSWORD,
   host: process.env.HOST,
@@ -32,7 +31,7 @@ component.on('stanza', function(stanza) {
     if (!stanza) return
     component.send(stanza)
   })
-})*/
+})
 
 io.on('connection', function(newSocket) {
   if (socket) {
