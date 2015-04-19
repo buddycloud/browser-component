@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "browserify src/index.js -o public/bundle.js"
-
+    "build": "browserify src/index.js -o public/bundle.js",
+    "start": "node index"
   },
   "author": "",
   "license": "ISC",
