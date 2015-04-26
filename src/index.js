@@ -11,7 +11,7 @@ BusinessLogic.prototype.process = function(stanza, callback) {
     reply.c('body').t('I got your message')
     return callback(stanza)
   }
-  console.log('I give up on ' + stanza.root().toString())
+  console.log('I give up on: ' + stanza.root().toString())
 }
 
 module.exports = BusinessLogic

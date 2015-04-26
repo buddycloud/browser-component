@@ -15,17 +15,22 @@ var logic = new BusinessLogic()
 var component = new Component({
   jid: process.env.JID,
   password: process.env.PASSWORD,
-  host: process.env.HOST,
-  port: process.env.PORT
+  host: process.env.HOST  || 'localhost',
+  port: process.env.PORT || 5347
 })
 
-component.on('online', function() {
+component.on('connect', function() {
   console.log('Component is connected')
+})
+
+component.on('error', function(error) {
+  console.log('Component error: ' + error)
 })
   
 component.on('stanza', function(stanza) {
+  console.log('Received stanza at component: ' + stanza.toString())
   if (socket) {
-    return socket.emit('stanza', stanza)
+    return socket.emit('stanza', stanza.toString())
   }
   logic.process(stanza, function(stanza) {
     if (!stanza) return
@@ -44,6 +49,7 @@ io.on('connection', function(newSocket) {
     socket = null
   })
   socket.on('stanza', function(stanza) {
+    console.log('Received stanza from websocket: ' + stanza)
     component.send(ltx.parse(stanza))
   })
 })
