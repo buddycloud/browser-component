@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "browserify browserify.js -o public/bundle.js",
-    "start": "node index"
+    "start": "npm run-script build && node index"
   },
   "author": "",
   "license": "ISC",

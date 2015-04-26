@@ -33,9 +33,10 @@
     socket.on('stanza', function(stanza) {
       console.log('Incoming: ' + stanza)
       var xml = ltx.parse(stanza)
-      logic.process(xml, function(stanza) {
-        if (!stanza) return
-        socket.emit('stanza', stanza)
+      logic.process(xml, function(reply) {
+        if (!reply) return
+        console.log('Sending reply stanza: ' + reply.toString())
+        socket.emit('stanza', reply.toString())
       })
       $('#stanzas').prepend('<div class="stanza">' + stanza + '</div')
     })
